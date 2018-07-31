@@ -6,8 +6,9 @@ metadata:
     "helm.sh/hook": test-success
 spec:
   containers:
-    - name: curl-test
+    - name: curl-coffee
       image: radial/busyboxplus:curl
       command: ['curl']
       args:  [ 'coffee-svc' ]
   restartPolicy: Never
+
