@@ -8,6 +8,10 @@ script:
 - echo "Building ingress controller commit:${TRAVIS_COMMIT}"
 - cd nginx-controller && 
   make  BUILD_IN_CONTAINER=0 container;
+- echo "Helm smoke test"
+- helm template ./helm-chart/ --name nginx-ingress
+- helm template ./helm-chart/ --name nginx-ingress -f helm-chart/values-plus.yaml
+- helm template ./helm-chart/ --name nginx-ingress -f helm-chart/values-icp.yaml
 before_install:
 - echo "PR Slug:${TRAVIS_PULL_REQUEST_SLUG}"
 - if [[ "${TRAVIS_PULL_REQUEST_SLUG}" == "nginxinc/kubernetes-ingress" || "${TRAVIS_PULL_REQUEST}" == "false" ]]; then
