@@ -9,9 +9,11 @@ script:
 - cd nginx-controller && 
   make  BUILD_IN_CONTAINER=0 container;
 - echo "Helm smoke test"
-- helm template ./helm-chart/ --name nginx-ingress
-- helm template ./helm-chart/ --name nginx-ingress -f helm-chart/values-plus.yaml
-- helm template ./helm-chart/ --name nginx-ingress -f helm-chart/values-icp.yaml
+- wget https://storage.googleapis.com/kubernetes-helm/helm-v2.10.0-linux-amd64.tar.gz &&
+  tar xzf helm-v2.10.0-linux-amd64.tar.gz
+- ./helm template ./helm-chart/ --name nginx-ingress
+- ./helm template ./helm-chart/ --name nginx-ingress -f helm-chart/values-plus.yaml
+- ./helm template ./helm-chart/ --name nginx-ingress -f helm-chart/values-icp.yaml
 before_install:
 - echo "PR Slug:${TRAVIS_PULL_REQUEST_SLUG}"
 - if [[ "${TRAVIS_PULL_REQUEST_SLUG}" == "nginxinc/kubernetes-ingress" || "${TRAVIS_PULL_REQUEST}" == "false" ]]; then
